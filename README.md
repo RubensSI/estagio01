@@ -2,7 +2,7 @@
 
 ## Gênero do jogo
 
-Plataforma/aventura
+Plataforma
 
 ## Vasão geral
 
@@ -11,8 +11,8 @@ iglu, que ao entrar, o jogo acaba.
 
 ## Objetivos Específicos
 
-Coletar os vários itens dispostos  pelas fases, como moedas, saltar entre plataformas e não cair 
-nos lagos de fogo ou nos espinhos que iram tirar pontos de vida do personagem.
+Desenvolver um jogo de plartaforma baseado no jogo Geometri Dash, onde o usuário pode clicar para aplicar uma força, onde
+essa força define a distâcia do salto.
 
 ## Enredo do personagem
 
@@ -20,30 +20,15 @@ O pinguim Dimy está perdido, em um lugar desconhecido, e bem longe do Polo
 Norte. Ele vai se aventurar enfrentando diversos obstáculos até encontrar o 
 caminho de volta para casa.
 
-## Personagem Principal
-
-O jogo LostDimy conta com um personagem chamado Dimy que um pinguin muito 
-esperto e que tem um caminho muito longo para percorrer até sua casa.
-
-## Inimigos
-
-não possui.
-
 ## Interações com o jogo
 
-A iteração do jogo acontece da seguinte forma, o personagem vai se movimentado pelo cenário
-a partir do toque na tela, podendo se mover em três direções, para frete, para traz e também pular. 
-
-## Controles
-
-Na tela(canto inferior esquerdo) do jogo existem botões direcionais que são usados para 
-mobilidade do personagem pelo cenário, e no canto inferior direito possui um botão que é
-usado para fazer o personagem pular também em duas direções, direita e esquerda.
+A iteração do jogo acontece da seguinte forma, o personagem vai se movimentado entre os blocos no cenário
+a partir do toque no teclado, se movendo sempre para a direita, por meio da ação de pular. 
 
 ## Sistema de pontuação
 
-A cada item coletado no jogo, pontos são acumulados, quanto mais itens forem  coletados maior a pontuação.
+A cada item coletado no jogo, pontos são acumulados, e cada vez que o perssonagem cair, perderá pontos.
 
 ## Sistema de vidas
 
-O jogo iniciará com três vidas, quando o jogador atingir 0 vidas poderá adquirir mais vidas tocadas por pontos.
+O jogo iniciará com três vidas, quando o perssonagem atingir 0 vidas, a partida será finalizada.
