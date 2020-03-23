@@ -11,7 +11,7 @@ iglu, que ao entrar, o jogo acaba.
 
 ## Objetivos Específicos
 
-Desenvolver um jogo de plartaforma baseado no jogo Geometri Dash, onde o usuário pode clicar para aplicar uma força, onde
+Desenvolver um jogo de plartaforma baseado no jogo Geometry Dash, onde o usuário pode clicar para aplicar uma força, onde
 essa força define a distâcia do salto.
 
 ## Enredo do personagem
