@@ -47,3 +47,29 @@ A cada item coletado no jogo, pontos são acumulados, quanto mais itens forem  c
 ## Sistema de vidas
 
 O jogo iniciará com três vidas, quando o jogador atingir 0 vidas poderá adquirir mais vidas tocadas por pontos.
+
+## Requisitos
+
+#### Épicos/Funcionalidades
+
+1. ##### Exibir tela de abertura com opção de menu
+
+   A aplicação exibe uma tela de abertura com opções de menu, contendo ajuda com  informações do game e iniciar partida
+
+2. **Exibir tela com o  personagem na primeira plataforma**
+
+   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque em uma tecla  
+
+3. **Exibir as plataformas de forma diferente**
+
+   A disposição das plataformas no jogo, se darão de forma aleatória .
+
+4. **Exibir tela de help**
+
+   A aplicação vai exibir a tela de help podendo ser acessada através do menu .
+
+5. **Exibir tela de ranking**
+
+   A aplicação exibe uma tela contendo os pontos obtidos pelo jogar e disponibiliza um ranking.
+
+   
