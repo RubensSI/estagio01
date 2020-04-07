@@ -1,4 +1,7 @@
 import 'phaser';
+import BlueButton2Img from '../assets/ui/blue_button02.png';
+import BlueButton3Img from '../assets/ui/blue_button03.png';
+import logoImg from '../assets/zenva_logo.png';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -31,7 +34,7 @@ export default class PreloaderScene extends Phaser.Scene {
     });
     loadingText.setOrigin(0.5, 0.5);
 
-    // Cisplays the percentage in the progress bar.
+    // Displays the percentage in the progress bar.
     // Created a new Phaser Text GameObject called percentText.
     // We define the origin as (0.5, 0.5) to help center the object.
     // In the progress event listener, we are updating the object's 
@@ -95,9 +98,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     // load assets needed in our game
-    this.load.image('blueButton1', 'assets/ui/blue_button02.png');
-    this.load.image('blueButton2', 'assets/ui/blue_button03.png');
-    this.load.image('phaserLogo', 'assets/logo.png');
+    this.load.image('blueButton1', BlueButton2Img);
+    this.load.image('blueButton2', BlueButton3Img);
+    this.load.image('phaserLogo', logoImg);
   }
 
   init () {
