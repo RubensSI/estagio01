@@ -2,12 +2,12 @@ import 'phaser';
 import logoImg from '../assets/zenva_logo.png';
 
 export default class BootScene extends Pheser.Scene {
-    constructor () {
+    constructor() {
         super('Boot');
     }
 
     preload() {
-        this.image('logo', logoImg)
+        this.load.image('logo', logoImg)
     }
 
     create() {

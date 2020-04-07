@@ -1,8 +1,9 @@
 import 'phaser';
-
+ 
 export default {
-    type: Phaser.AUTO,
-    parent: 'LostDymi',
-    width: 800,
-    height: 600
+  type: Phaser.AUTO,
+  autoCenter: Phaser.Scale.CENTER_BOTH,
+  parent: 'phaser-example',
+  width: 800,
+  height: 600
 };
