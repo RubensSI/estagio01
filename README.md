@@ -26,7 +26,7 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira ser
 
 #### Épicos/Funcionalidades
 
-1. ##### Exibir tela de abertura com opção de menu
+1. **Exibir tela de abertura com opção de menu**
 
    A aplicação exibe uma tela de abertura com opções de menu, contendo ajuda com  informações do game e iniciar partida
 
