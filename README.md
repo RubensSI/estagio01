@@ -1,38 +1,26 @@
 # LostDimy
 
-## Gênero do jogo
+## Visão geral
 
-Plataforma
+O jogo tem como objetivo atingir uma pontuação na qual ele possa  
 
-## Vasão geral
+O jogo terá um objetivo que o jogador terá que atingir, pular todas as plataformas até o fim das fases onde na ultima,   ao final personagem encontrará um
+iglu, que ao entrar, o jogo acaba
 
-Vencer todos os obstáculos até o ultimo estágio onde o personagem encontrará um
-iglu, que ao entrar, o jogo acaba.
-
-## Objetivos Específicos
-
-Desenvolver um jogo de plartaforma baseado no jogo Geometry Dash, onde o usuário pode clicar para aplicar uma força, onde
-essa força define a distâcia do salto.
-
-## Enredo do personagem
-
-O pinguim Dimy está perdido, em um lugar desconhecido, e bem longe do Polo 
-Norte. Ele vai se aventurar enfrentando diversos obstáculos até encontrar o 
-caminho de volta para casa.
+Desenvolver um jogo de plataforma baseado no jogo Spring Ninja, onde o usuário pode clicar para aplicar uma força, onda essa força define a distância e altura do salto
 
 ## Interações com o jogo
 
-A iteração do jogo acontece da seguinte forma, o personagem vai se movimentado entre os blocos no cenário
-a partir do toque no teclado, se movendo sempre para a direita, por meio da ação de pular. 
+A iteração do jogo acontece da seguinte forma, o personagem vai se movimentado entre os blocos no cenário a partir do toque no teclado, se movendo sempre para a direita, por meio da ação de pular. 
 
 ## Sistema de pontuação
 
-A cada item coletado no jogo, pontos são acumulados, e cada vez que o perssonagem cair, perderá pontos.
+Os pontos são acumulados quando personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 10 pontos
 
 ## Sistema de vidas
 
-<<<<<<< HEAD
-O jogo iniciará com três vidas, quando o jogador atingir 0 vidas poderá adquirir mais vidas tocadas por pontos.
+
+O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira será finalizada.
 
 ## Requisitos
 
@@ -42,7 +30,7 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas poderá adqui
 
    A aplicação exibe uma tela de abertura com opções de menu, contendo ajuda com  informações do game e iniciar partida
 
-2. **Exibir tela com o  personagem na primeira plataforma**
+2. **Desenvolver  a tela principal do jogo**
 
    A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque em uma tecla  
 
@@ -57,8 +45,5 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas poderá adqui
 5. **Exibir tela de ranking**
 
    A aplicação exibe uma tela contendo os pontos obtidos pelo jogar e disponibiliza um ranking.
+O jogo iniciará com três vidas, quando o personagem atingir 0 vidas, a partida será finalizada.
 
-   
-=======
-O jogo iniciará com três vidas, quando o perssonagem atingir 0 vidas, a partida será finalizada.
->>>>>>> a1d87cfd9567fd0b7b04057c8c9b1b38093293e2
