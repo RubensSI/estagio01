@@ -43,4 +43,3 @@ Mari - usuário com acesso a um navegador web, que gosta de jogar games no compu
 **Protótipos de Tela**
 
 
-![Diagram](http://jgraph.github.io/drawio-github/diagram.png)
