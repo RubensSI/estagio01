@@ -26,7 +26,7 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira ser
 
 2. **Desenvolver  a tela principal do jogo**
 
-   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque no moouse
+   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque no mouse
 
 4. **Exibir tela de help**
 
@@ -42,4 +42,4 @@ Mari - usuário com acesso a um navegador web, que gosta de jogar games no compu
 
 **Protótipos de Tela**
 
-
+![GameDiagrama](estagio01/LostDymi/GameDiagrama.png)
