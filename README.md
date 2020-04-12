@@ -42,4 +42,4 @@ Mari - usuário com acesso a um navegador web, que gosta de jogar games no compu
 
 **Protótipos de Tela**
 
-![GameDiagrama](LostDymi/GameDiagrama.png)
+![GameDiagrama](GameDiagrama.png)
