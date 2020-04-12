@@ -2,25 +2,19 @@
 
 ## Visão geral
 
-O jogo tem como objetivo atingir uma pontuação na qual ele possa  
-
-O jogo terá um objetivo que o jogador terá que atingir, pular todas as plataformas até o fim das fases onde na ultima,   ao final personagem encontrará um
-iglu, que ao entrar, o jogo acaba
-
-Desenvolver um jogo de plataforma baseado no jogo Spring Ninja, onde o usuário pode clicar para aplicar uma força, onda essa força define a distância e altura do salto
+LostDymi é um jogo no qual o jogador controla um pinguin que precisa atravessar um percurso imprevisivel e bastante irregular por meio de saltos. Apresentando seu trajeto em plataforma 2D, e preciso pressionar o botão esquerdo do mouse para regular o grau de impulção dos saltos, recebendo pontos por cada elevação alcançada.
 
 ## Interações com o jogo
 
-A iteração do jogo acontece da seguinte forma, o personagem vai se movimentado entre os blocos no cenário a partir do toque no teclado, se movendo sempre para a direita, por meio da ação de pular. 
+A interação do jogo acontece da seguinte forma, o personagem vai se movimentando entre os blocos do cenário pressionando  o botão esquerdo do mouse, se movendo sempre para a direita, por meio da ação pular. 
 
 ## Sistema de pontuação
 
-Os pontos são acumulados quando personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 10 pontos
+Os pontos são acumulados quando o personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 10 pontos podendo ser acrescentado pontos extras por cada sequência de blocos realzada. 
 
 ## Sistema de vidas
 
-
-O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira será finalizada.
+O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira será reiniciada.
 
 ## Requisitos
 
@@ -32,11 +26,7 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira ser
 
 2. **Desenvolver  a tela principal do jogo**
 
-   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque em uma tecla  
-
-3. **Exibir as plataformas de forma diferente**
-
-   A disposição das plataformas no jogo, se darão de forma aleatória .
+   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque no moouse
 
 4. **Exibir tela de help**
 
