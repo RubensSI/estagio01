@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-LostDymi é um jogo no qual o jogador controla um pinguin que precisa atravessar um percurso imprevisivel e bastante irregular por meio de saltos. Apresentando seu trajeto em plataforma 2D, e preciso pressionar o botão esquerdo do mouse para regular o grau de impulção dos saltos, recebendo pontos por cada elevação alcançada.
+LostDymi é um jogo no qual o jogador controla um pinguim que precisa atravessar um percurso imprevisível e bastante irregular por meio de saltos. Apresentando seu trajeto em plataforma 2D, e preciso pressionar o botão esquerdo do mouse para regular o grau de impulsão dos saltos, recebendo pontos por cada elevação alcançada.
 
 ## Interações com o jogo
 
@@ -10,7 +10,7 @@ A interação do jogo acontece da seguinte forma, o personagem vai se movimentan
 
 ## Sistema de pontuação
 
-Os pontos são acumulados quando o personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 10 pontos podendo ser acrescentado pontos extras por cada sequência de blocos realzada. 
+Os pontos são acumulados quando o personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 10 pontos podendo ser acrescentado pontos extras por cada sequência de blocos realizada. 
 
 ## Sistema de vidas
 
@@ -40,6 +40,8 @@ O jogo iniciará com três vidas, quando o personagem atingir 0 vidas, a partida
 **Personas**
 Mari - usuário com acesso a um navegador web, que gosta de jogar games no computador.
 
-**Protótipos de Tela**
+## Protótipos de Tela
 
-![GameDiagrama](GameDiagrama.png)
+
+
+![diagrama](diagrama.png)
