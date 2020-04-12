@@ -37,3 +37,10 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira ser
    A aplicação exibe uma tela contendo os pontos obtidos pelo jogar e disponibiliza um ranking.
 O jogo iniciará com três vidas, quando o personagem atingir 0 vidas, a partida será finalizada.
 
+**Personas**
+Mari - usuário com acesso a um navegador web, que gosta de jogar games no computador.
+
+**Protótipos de Tela**
+
+
+![Diagram](http://jgraph.github.io/drawio-github/diagram.png)
