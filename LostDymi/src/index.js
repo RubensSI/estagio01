@@ -6,7 +6,7 @@ import PreloaderScene from './Scenes/PreloaderScene';
 import TitleScene from './Scenes/TitleScene';
 import OptionsScene from './Scenes/OptionsScene';
 import CreditsScene from './Scenes/CreditsScene';
- 
+
 class Game extends Phaser.Game {
   constructor () {
     super(config);
@@ -19,5 +19,5 @@ class Game extends Phaser.Game {
     this.scene.start('Game');
   }
 }
- 
+
 window.game = new Game();

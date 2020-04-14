@@ -4,8 +4,8 @@
   "description": "A Phaser 3 Project ",
   "main": "src/index.js",
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/RubensSI/estagio01.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,8 +13,9 @@
     "start": "webpack-dev-server --config webpack/base.js --open"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Rubens Santos <rubenssi825@gmail.com>" ,
+  "license": "MIT",
+  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
   "dependencies": {
     "phaser": "^3.22.0"
   },
