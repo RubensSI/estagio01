@@ -10,6 +10,7 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   preload () {
+    this.add.image(400, 300, 'ground')
     // add logo image
     this.add.image(400, 200, 'logo');
 
@@ -63,9 +64,9 @@ export default class PreloaderScene extends Phaser.Scene {
     });
 
     // update file progress text
-    this.load.on('fileprogress', function (file) {
-      assetText.setText('Loading asset: ' + file.key);
-    });
+    //this.load.on('fileprogress', function (file) {
+      //assetText.setText('Loading asset: ' + file.key);
+    //});
 
     // remove progress bar when complete
     this.load.on('complete', function () {
@@ -83,9 +84,13 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blueButton1', 'assets/ui/blue_button02.png');
     this.load.image('blueButton2', 'assets/ui/blue_button03.png');
     this.load.image('phaserLogo', 'assets/logo.png');
+    this.load.image('box', 'assets/ui/grey_box.png');
+    this.load.image('checkedBox', 'assets/ui/blue_boxCheckmark.png');
+    this.load.audio('bgMusic', ['assets/TownTheme.mp3']);
   }
 
   ready () {
+    this.scene.start('Options');
     this.readyCount++;
     if (this.readyCount === 2) {
       this.scene.start('Title');
