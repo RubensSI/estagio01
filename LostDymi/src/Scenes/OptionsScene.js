@@ -4,6 +4,7 @@ export default class OptionsScene extends Phaser.Scene {
   constructor () {
     super('Options');
   }
+
   
   create () {
 
@@ -42,7 +43,16 @@ export default class OptionsScene extends Phaser.Scene {
 
     this.updateAudio();
 
+    //this.input.on('pointerover', function (event, gameObjects) {
+    //  gameObjects[0].setTexture('blueButton2');
+    //});
+
+    //this.input.on('pointerout', function (event, gameObjects) {
+    //  gameObjects[0].setTexture('blueButton1');
+    //});
+
   }
+
 
   updateAudio() {
     if (this.musicOn === false) {
