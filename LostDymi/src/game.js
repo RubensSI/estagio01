@@ -85,7 +85,7 @@ window.onload = function() {
 	function addPole(poleX){
 		if(poleX<game.width*2){
 			placedPoles++;
-			var pole = new Pole(game,poleX,game.rnd.between(250,380));
+			var pole = new Pole(game,poleX, Phaser.Math.RND.between(250,380));
 			game.add.existing(pole);
 	          pole.anchor.set(0.5,0);
 			poleGroup.add(pole);
