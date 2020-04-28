@@ -79,7 +79,9 @@ export default class GameScene extends Phaser.Scene {
     ninja.lastPole = 1;
     ninja.body.setGravityY(ninjaGravity);
     ninja.setCollideWorldBounds(true);
+    
     this.addPole(80);
+    
     this.physics.add.collider(ninja, poleGroup);
 
   }
@@ -114,6 +116,7 @@ export default class GameScene extends Phaser.Scene {
     var nextPolePosition = maxPoleX + game.rnd.between(minPoleGap, maxPoleGap);
     addPole(nextPolePosition);
   }
+
   addPole(poleX) {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
