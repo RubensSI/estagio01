@@ -74,8 +74,8 @@ export default class GameScene extends Phaser.Scene {
     //game.stage.backgroundColor = "#87CEEB";
 
     ninja = this.physics.add.sprite(80, 0, "ninja");
-    ninja.setOrigin(0.5);
-    ninja.setBounce(0.08);
+    //ninja.setOrigin(0.5);
+    //ninja.setBounce(0.08);
     ninja.lastPole = 1;
     ninja.body.setGravityY(ninjaGravity);
     ninja.setCollideWorldBounds(true);
@@ -111,7 +111,7 @@ export default class GameScene extends Phaser.Scene {
   addNewPoles() {
     var maxPoleX = 0;
     poleGroup.forEach(function (item) {
-      maxPoleX = Math.max(item.x, maxPoleX)
+      maxPoleX = Math.max(item.x, maxPoleX);
     });
     var nextPolePosition = maxPoleX + game.rnd.between(minPoleGap, maxPoleGap);
     addPole(nextPolePosition);
@@ -121,7 +121,7 @@ export default class GameScene extends Phaser.Scene {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
       //var pole = new Pole(game, poleX, this.rnd.between(250, 380));
-      var pole = poleGroup.create(poleX, Phaser.Math.RND.between(250,380), 'pole');
+      var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220,350) * 2, 'pole');
       //this.add.existing(pole);
       //pole.setOrigin(0.5, 0);
       //poleGroup.add(pole);
