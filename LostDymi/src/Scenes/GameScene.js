@@ -57,34 +57,39 @@ export default class GameScene extends Phaser.Scene {
 
   create() {
     this.add.image(400, 300, 'ground');
-    /* this.add.image(400, 300, 'logo');
-    this.add.image(100, 300, 'ninja');
-    this.add.image(200, 300, 'pole');
-    this.add.image(300, 300, 'powerbar'); */
+
     ninjaJumping = false;
     ninjaFallingDown = false;
-    score = 0;
     placedPoles = 0;
-    poleGroup = this.physics.add.staticGroup();
-    topScore = localStorage.getItem("topFlappyScore") == null ? 0 : localStorage.getItem("topFlappyScore");
-    scoreText = this.add.text(10, 10, "-", {
-      font: "bold 16px Arial"
-    });
-    this.updateScore();
-    //game.stage.backgroundColor = "#87CEEB";
 
     ninja = this.physics.add.sprite(80, 0, "ninja");
-    //ninja.setOrigin(0.5);
-    //ninja.setBounce(0.08);
+    ninja.setOrigin(0.5);
+    ninja.setBounce(0.1);
     ninja.lastPole = 1;
     ninja.body.setGravityY(ninjaGravity);
-    ninja.setCollideWorldBounds(true);
     
+    score = 0;
+    poleGroup = this.physics.add.staticGroup();
+    topScore = localStorage.getItem("topFlappyScore") == null ? 0 : localStorage.getItem("topFlappyScore");
+    scoreText = this.add.text(15, 15, "-", {
+      font: "bold 16px Arial"
+    });
+
+    this.updateScore();
+
     this.addPole(80);
-    
-    this.physics.add.collider(ninja, poleGroup);
+  }
+
+  update() {
+
+    // Comente esta linha para testar a função die(reiniciar)
+    this.physics.add.collider(ninja ,poleGroup)
+    if (ninja.y > game.config.height) {
+      this.die();
+    }
 
   }
+
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
   }
@@ -92,18 +97,19 @@ export default class GameScene extends Phaser.Scene {
     if (ninja.body.velocity.y == 0) {
       powerBar = game.add.sprite(ninja.x, ninja.y - 50, "powerbar");
       powerBar.width = 0;
+      //1
       powerTween = game.add.tween(powerBar).to({
         width: 100
       }, 1000, "Linear", true);
       game.input.onDown.remove(prepareToJump, this);
-      game.input.onUp.add(jump, this);
+      game.input.onUp.add(jump, this)
     }
   }
   jump() {
     ninjaJumpPower = -powerBar.width * 3 - 100
     powerBar.destroy();
     game.tweens.removeAll();
-    ninja.body.velocity.y = ninjaJumpPower * 2;
+    this.ninja.body.velocity.y = ninjaJumpPower * 2;
     ninjaJumping = true;
     powerTween.stop();
     game.input.onUp.remove(jump, this);
@@ -121,7 +127,7 @@ export default class GameScene extends Phaser.Scene {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
       //var pole = new Pole(game, poleX, this.rnd.between(250, 380));
-      var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220,350) * 2, 'pole');
+      var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) + 320, 'pole');
       //this.add.existing(pole);
       //pole.setOrigin(0.5, 0);
       //poleGroup.add(pole);
@@ -129,9 +135,10 @@ export default class GameScene extends Phaser.Scene {
       this.addPole(nextPolePosition);
     }
   }
+  // Consertei o die(função para reiniciar o jogo ao morrer)... remover colisão para testar
   die() {
     localStorage.setItem("topFlappyScore", Math.max(score, topScore));
-    game.state.start("Play");
+    this.scene.start("Game");
   }
 
   checkLanding(n, p) {
