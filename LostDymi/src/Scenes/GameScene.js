@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png';
 import ninjaImage from '../../assets/ninja.png';
 import pole from '../../assets/pole.png';
 import powerbar from '../../assets/powerbar.png';
-
+import chaoImg from "../../assets/chao.png";
 
 var ninja;
 var ninjaGravity = 800;
@@ -19,28 +19,8 @@ var minPoleGap = 100;
 var maxPoleGap = 300;
 var ninjaJumping;
 var ninjaFallingDown;
-
-/* var Pole = function (game, x, y) {
-  Phaser.Sprite.call(this, game, x, y, "pole");
-  game.physics.enable(this, Phaser.Physics.ARCADE);
-  this.body.immovable = true;
-  this.poleNumber = placedPoles;
-};
-Pole.prototype = Object.create(Phaser.Sprite.prototype);
-Pole.prototype.constructor = Pole;
-Pole.prototype.update = function () {
-  if (ninjaJumping && !ninjaFallingDown) {
-    this.body.velocity.x = ninjaJumpPower;
-  }
-  else {
-    this.body.velocity.x = 0
-  }
-  if (this.x < -this.width) {
-    this.destroy();
-    //addNewPoles();
-  }
-}
- */
+var chaoGroup;
+var game;
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -53,92 +33,114 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("ninja", ninjaImage);
     this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
+    this.load.image("chao", chaoImg);
   }
 
   create() {
-    this.add.image(400, 300, 'ground');
 
+    //Adição do background
+    this.add.image(400, 300, 'ground');
+    //  The platforms group contains the ground and the 2 ledges we can jump on
+    chaoGroup = this.physics.add.staticGroup();
+    let chao = chaoGroup.create(400, 600, 'chao').setScale(10, 1).refreshBody();
+    //chao.setCollideWorldBounds(true);
+
+    game = this;
     ninjaJumping = false;
     ninjaFallingDown = false;
+    score = 0;
     placedPoles = 0;
+    poleGroup = this.physics.add.group();
+
+    this.physics.add.collider(poleGroup, chaoGroup);
+
+    topScore = localStorage.getItem("topFlappyScore") == null ? 0 : localStorage.getItem("topFlappyScore");
+    scoreText = this.add.text(10, 10, "-", {
+      font: "bold 16px Arial"
+    });
+    this.updateScore();
+    //game.stage.backgroundColor = "#87CEEB";
 
     ninja = this.physics.add.sprite(80, 0, "ninja");
     ninja.setOrigin(0.5);
-    ninja.setBounce(0.1);
     ninja.lastPole = 1;
     ninja.body.setGravityY(ninjaGravity);
-    
-    score = 0;
-    poleGroup = this.physics.add.staticGroup();
-    topScore = localStorage.getItem("topFlappyScore") == null ? 0 : localStorage.getItem("topFlappyScore");
-    scoreText = this.add.text(15, 15, "-", {
-      font: "bold 16px Arial"
-    });
-
-    this.updateScore();
-
+    ninja.setCollideWorldBounds(true);
+    ninja.setVelocityY(0);
+    this.physics.add.collider(ninja, chaoGroup, this.die, null, this);
+    //this.input.keyboard.onDown.add(prepareToJump, this);
     this.addPole(80);
-  }
-
-  update() {
-
-    // Comente esta linha para testar a função die(reiniciar)
-    this.physics.add.collider(ninja ,poleGroup)
-    if (ninja.y > game.config.height) {
-      this.die();
-    }
+    this.input.keyboard.on('keydown', this.prepareToJump);
+    this.physics.add.collider(ninja, poleGroup);
+    this.physics.add.collider(poleGroup, chaoGroup);
 
   }
-
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
   }
+  update() {
+    game.physics.add.collider(ninja, poleGroup, this.checkLanding, null, this);
+
+  }
+
   prepareToJump() {
-    if (ninja.body.velocity.y == 0) {
-      powerBar = game.add.sprite(ninja.x, ninja.y - 50, "powerbar");
-      powerBar.width = 0;
-      //1
-      powerTween = game.add.tween(powerBar).to({
-        width: 100
-      }, 1000, "Linear", true);
-      game.input.onDown.remove(prepareToJump, this);
-      game.input.onUp.add(jump, this)
+    if (ninja.body.velocity.y <= 5) {
+      //game.physics.add.sprite(100, 450, 'powerbar');
+      powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
+      //powerBar.setScale(0.9).refreshBody();
+      powerBar.scaleX = 0;
+
+      powerTween = game.tweens.add({
+        targets: powerBar,
+        scaleX: { from: 0, to: 1.5 },
+        width: { from: 0, to: 100 },
+        ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+        duration: 1000,
+        repeat: 0,            // -1: infinity
+        yoyo: false
+      });
+      game.input.keyboard.off('keydown', game.prepareToJump);
+      game.input.keyboard.on('keyup', game.jump);
     }
   }
   jump() {
     ninjaJumpPower = -powerBar.width * 3 - 100
     powerBar.destroy();
-    game.tweens.removeAll();
-    this.ninja.body.velocity.y = ninjaJumpPower * 2;
+    powerTween.remove();
+    //game.tweens.remove();
+    ninja.body.velocity.y = ninjaJumpPower * 2;
     ninjaJumping = true;
     powerTween.stop();
-    game.input.onUp.remove(jump, this);
+    game.input.keyboard.off('keyup', game.jump);
+    game.input.keyboard.on('keydown', game.prepareToJump);
   }
+
   addNewPoles() {
     var maxPoleX = 0;
-    poleGroup.forEach(function (item) {
+    poleGroup.children.iterate(function (item) {
       maxPoleX = Math.max(item.x, maxPoleX);
     });
-    var nextPolePosition = maxPoleX + game.rnd.between(minPoleGap, maxPoleGap);
-    addPole(nextPolePosition);
+    var nextPolePosition = maxPoleX + Phaser.Math.RND.between(minPoleGap, maxPoleGap);
+    this.addPole(nextPolePosition);
   }
 
   addPole(poleX) {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
       //var pole = new Pole(game, poleX, this.rnd.between(250, 380));
-      var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) + 320, 'pole');
-      //this.add.existing(pole);
-      //pole.setOrigin(0.5, 0);
-      //poleGroup.add(pole);
+      var pole = new Pole(game, poleX, 340);
+      //var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) * 2, 'pole');
+      pole.setOrigin(0.5, 0);
+      pole.setCollideWorldBounds(true);
+      pole.setScale(1, 1 / Phaser.Math.RND.between(2, 2));
+      poleGroup.add(pole);
       var nextPolePosition = poleX + Phaser.Math.RND.between(minPoleGap, maxPoleGap);
       this.addPole(nextPolePosition);
     }
   }
-  // Consertei o die(função para reiniciar o jogo ao morrer)... remover colisão para testar
   die() {
     localStorage.setItem("topFlappyScore", Math.max(score, topScore));
-    this.scene.start("Game");
+    game.scene.start("Game");
   }
 
   checkLanding(n, p) {
@@ -151,19 +153,52 @@ export default class GameScene extends Phaser.Scene {
       var poleDiff = p.poleNumber - n.lastPole;
       if (poleDiff > 0) {
         score += Math.pow(2, poleDiff);
-        updateScore();
+        this.updateScore();
         n.lastPole = p.poleNumber;
       }
       if (ninjaJumping) {
         ninjaJumping = false;
-        game.input.onDown.add(prepareToJump, this);
+        //game.input.onDown.add(this.prepareToJump, this);
+        game.input.keyboard.on('keydown', game.prepareToJump);
       }
     }
     else {
       ninjaFallingDown = true;
-      poleGroup.forEach(function (item) {
+      poleGroup.children.iterate(function (item) {
         item.body.velocity.x = 0;
       });
+    }
+  }
+};
+
+class Pole extends Phaser.Physics.Arcade.Sprite {
+
+  constructor(scene, x, y) {
+    super(scene, x, y);
+    this.poleNumber = placedPoles;
+    this.setTexture('pole');
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    this.body.immovable = true;
+    this.setCollideWorldBounds(true);
+
+  }
+
+  preUpdate(time, delta) {
+    super.preUpdate(time, delta);
+    this.update();
+  }
+
+  update() {
+    if (ninjaJumping && !ninjaFallingDown) {
+      this.body.velocity.x = ninjaJumpPower;
+    }
+    else {
+      this.body.velocity.x = 0
+    }
+    if (this.x < -this.width) {
+      this.destroy();
+      game.addNewPoles();
     }
   }
 };
