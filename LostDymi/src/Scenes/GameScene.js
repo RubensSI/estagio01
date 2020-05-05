@@ -65,26 +65,22 @@ export default class GameScene extends Phaser.Scene {
     ninja.setOrigin(0.5);
     ninja.lastPole = 1;
     ninja.body.setGravityY(ninjaGravity);
-    ninja.setCollideWorldBounds(true);
+    //ninja.setCollideWorldBounds(true);
     ninja.setVelocityY(0);
     this.physics.add.collider(ninja, chaoGroup, this.die, null, this);
-    //this.input.keyboard.onDown.add(prepareToJump, this);
     this.addPole(80);
     this.input.keyboard.on('keydown', this.prepareToJump);
-    this.physics.add.collider(ninja, poleGroup);
-    this.physics.add.collider(poleGroup, chaoGroup);
-
+    
   }
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
   }
   update() {
     game.physics.add.collider(ninja, poleGroup, this.checkLanding, null, this);
-
   }
 
   prepareToJump() {
-    if (ninja.body.velocity.y <= 5) {
+    if (ninja.body.velocity.y <= 25) {
       //game.physics.add.sprite(100, 450, 'powerbar');
       powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
       //powerBar.setScale(0.9).refreshBody();
@@ -106,11 +102,11 @@ export default class GameScene extends Phaser.Scene {
   jump() {
     ninjaJumpPower = -powerBar.width * 3 - 100
     powerBar.destroy();
+    powerTween.stop();
     powerTween.remove();
     //game.tweens.remove();
     ninja.body.velocity.y = ninjaJumpPower * 2;
     ninjaJumping = true;
-    powerTween.stop();
     game.input.keyboard.off('keyup', game.jump);
     game.input.keyboard.on('keydown', game.prepareToJump);
   }
@@ -124,6 +120,10 @@ export default class GameScene extends Phaser.Scene {
     this.addPole(nextPolePosition);
   }
 
+  /**
+   * Adiciona os postes
+   * @param {*} poleX Posição inical do primeiro poste
+   */
   addPole(poleX) {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
@@ -131,7 +131,7 @@ export default class GameScene extends Phaser.Scene {
       var pole = new Pole(game, poleX, 340);
       //var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) * 2, 'pole');
       pole.setOrigin(0.5, 0);
-      pole.setCollideWorldBounds(true);
+      //pole.setCollideWorldBounds(true);
       pole.setScale(1, 1 / Phaser.Math.RND.between(2, 2));
       poleGroup.add(pole);
       var nextPolePosition = poleX + Phaser.Math.RND.between(minPoleGap, maxPoleGap);
@@ -170,7 +170,9 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 };
-
+/**
+ * Classe que representa o poste
+ */
 class Pole extends Phaser.Physics.Arcade.Sprite {
 
   constructor(scene, x, y) {
@@ -178,10 +180,7 @@ class Pole extends Phaser.Physics.Arcade.Sprite {
     this.poleNumber = placedPoles;
     this.setTexture('pole');
     scene.add.existing(this);
-    scene.physics.add.existing(this);
-    this.body.immovable = true;
-    this.setCollideWorldBounds(true);
-
+    scene.physics.add.existing(this);    
   }
 
   preUpdate(time, delta) {
@@ -194,7 +193,7 @@ class Pole extends Phaser.Physics.Arcade.Sprite {
       this.body.velocity.x = ninjaJumpPower;
     }
     else {
-      this.body.velocity.x = 0
+      this.body.velocity.x = 0;
     }
     if (this.x < -this.width) {
       this.destroy();
