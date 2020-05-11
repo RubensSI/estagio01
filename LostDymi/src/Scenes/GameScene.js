@@ -1,12 +1,13 @@
 import 'phaser';
 import logo from '../../assets/logo.png';
-import ninjaImage from '../../assets/ninja.png';
+import ninjaImage from '../../assets/ninjasp.png';
 import pole from '../../assets/pole.png';
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
+import background from "../../assets/BG.png";
 
 var ninja;
-var ninjaGravity = 800;
+var ninjaGravity = 500;
 var ninjaJumpPower;
 var score = 0;
 var scoreText;
@@ -29,6 +30,7 @@ export default class GameScene extends Phaser.Scene {
 
   preload() {
     // load images
+    this.load.image('background', background)
     this.load.image('logo', logo);
     this.load.image("ninja", ninjaImage);
     this.load.image("pole", pole);
@@ -37,9 +39,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-
     //Adição do background
-    this.add.image(400, 300, 'ground');
+    this.add.image(500, 300, 'background');
     //  The platforms group contains the ground and the 2 ledges we can jump on
     chaoGroup = this.physics.add.staticGroup();
     let chao = chaoGroup.create(400, 600, 'chao').setScale(10, 1).refreshBody();
@@ -62,7 +63,7 @@ export default class GameScene extends Phaser.Scene {
     //game.stage.backgroundColor = "#87CEEB";
 
     ninja = this.physics.add.sprite(80, 0, "ninja");
-    ninja.setOrigin(0.5);
+    //ninja.setOrigin(0.5,);
     ninja.lastPole = 1;
     ninja.body.setGravityY(ninjaGravity);
     //ninja.setCollideWorldBounds(true);
