@@ -10,7 +10,7 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   preload () {
-    this.add.image(400, 300, 'ground')
+    this.add.image(400, 350, 'ground')
     // add logo image
     this.add.image(400, 200, 'logo');
 

@@ -8,7 +8,7 @@ export default class OptionsScene extends Phaser.Scene {
   
   create () {
 
-    this.add.image(400, 300, 'ground');
+    this.add.image(400, 350, 'ground');
 
     this.musicOn = true;
     this.soundOn = true;
