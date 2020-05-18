@@ -1,13 +1,14 @@
 import 'phaser';
-import logo from '../../assets/logo.png';
-import ninjaImage from '../../assets/ninjasp.png';
-import pole from '../../assets/pole.png';
+import logo from "../../assets/logo.png";
+import ninjaImage from "../../assets/ninjasp.png";
+import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
+import ilha from "../../assets/platform.png";
 
 var ninja;
-var ninjaGravity = 500;
+var ninjaGravity = 300;
 var ninjaJumpPower;
 var score = 0;
 var scoreText;
@@ -32,8 +33,9 @@ export default class GameScene extends Phaser.Scene {
     // load images
     this.load.image('background', background)
     this.load.image('logo', logo);
+    this.load.image("pole", ilha)
     this.load.image("ninja", ninjaImage);
-    this.load.image("pole", pole);
+    //this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
   }
@@ -129,7 +131,7 @@ export default class GameScene extends Phaser.Scene {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
       //var pole = new Pole(game, poleX, this.rnd.between(250, 380));
-      var pole = new Pole(game, poleX, 340);
+      var pole = new Pole(game, poleX, 340, 'pole');
       //var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) * 2, 'pole');
       pole.setOrigin(0.5, 0);
       //pole.setCollideWorldBounds(true);
@@ -174,12 +176,12 @@ export default class GameScene extends Phaser.Scene {
 /**
  * Classe que representa o poste
  */
-class Pole extends Phaser.Physics.Arcade.Sprite {
+class Pole extends Phaser.GameObjects.Sprite {
 
-  constructor(scene, x, y) {
+  constructor(scene, x, y, texture) {
     super(scene, x, y);
     this.poleNumber = placedPoles;
-    this.setTexture('pole');
+    this.setTexture(texture);
     scene.add.existing(this);
     scene.physics.add.existing(this);    
   }
