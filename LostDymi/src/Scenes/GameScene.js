@@ -130,7 +130,7 @@ export default class GameScene extends Phaser.Scene {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
       //var pole = new Pole(game, poleX, this.rnd.between(250, 380));
-      var pole = new Pole(game, poleX, 345, 'pole');
+      var pole = new Pole(game, poleX, 344, 'pole');
       //var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) * 2, 'pole');
       pole.setOrigin(0.5, 0);
       //pole.setCollideWorldBounds(true);
