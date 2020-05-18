@@ -34,7 +34,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('background', background)
     this.load.image('logo', logo);
     this.load.image("pole", ilha)
-    this.load.image("ninja", ninjaImage);
+    this.load.spritesheet('ninja', ninjaImage, { frameWidth: 72, frameHeight: 64 });
     this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
@@ -64,16 +64,29 @@ export default class GameScene extends Phaser.Scene {
     this.updateScore();
     //game.stage.backgroundColor = "#87CEEB";
 
-    ninja = this.physics.add.sprite(80, 0, "ninja");
-    //ninja.setOrigin(0.5,);
-    ninja.lastPole = 1;
+    ninja = this.physics.add.sprite(80, 200, "ninja");
+
+    this.anims.create({
+      key: 'Up',
+      frames: this.anims.generateFrameNumbers("ninja", { start: 5, end: 7 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'turn',
+      frames: [{ key: "ninja", frame: 10 }],
+      frameRate: 20
+    });
+
     ninja.body.setGravityY(ninjaGravity);
     //ninja.setCollideWorldBounds(true);
     ninja.setVelocityY(0);
     this.physics.add.collider(ninja, chaoGroup, this.die, null, this);
+    ninja.lastPole = 1;
     this.addPole(80);
     this.input.keyboard.on('keydown', this.prepareToJump);
-    
+
   }
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
@@ -182,7 +195,7 @@ class Pole extends Phaser.GameObjects.Sprite {
     this.poleNumber = placedPoles;
     this.setTexture(texture);
     scene.add.existing(this);
-    scene.physics.add.existing(this);    
+    scene.physics.add.existing(this);
   }
 
   preUpdate(time, delta) {
