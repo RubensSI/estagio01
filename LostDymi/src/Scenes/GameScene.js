@@ -5,7 +5,7 @@ import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
-import ilha from "../../assets/pole.png";
+import ilha from "../../assets/crate32.png";
 
 var ninja;
 var ninjaGravity = 600;
@@ -17,8 +17,8 @@ var powerBar;
 var powerTween;
 var placedPoles;
 var poleGroup;
-var minPoleGap = 100;
-var maxPoleGap = 300;
+var minPoleGap = 200;
+var maxPoleGap = 350;
 var ninjaJumping;
 var ninjaFallingDown;
 var chaoGroup;
@@ -33,11 +33,12 @@ export default class GameScene extends Phaser.Scene {
     // load images
     this.load.image('background', background)
     this.load.image('logo', logo);
-    this.load.image("pole", ilha)
+    //this.load.image("pole", ilha)
     this.load.spritesheet('ninja', ninjaImage, { frameWidth: 72, frameHeight: 64 });
     this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
+    this.load.image("ilha",ilha);
   }
 
   create() {
@@ -46,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
     //  The platforms group contains the ground and the 2 ledges we can jump on
     chaoGroup = this.physics.add.staticGroup();
     let chao = chaoGroup.create(400, 600, 'chao').setScale(10, 1).refreshBody();
+    chao.setImmovable(true);
     //chao.setCollideWorldBounds(true);
 
     game = this;
@@ -96,12 +98,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   prepareToJump() {
+    ninja.body.velocity.x = 0;
     if (ninja.body.velocity.y <= 25) {
       //game.physics.add.sprite(100, 450, 'powerbar');
       powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
       //powerBar.setScale(0.9).refreshBody();
       powerBar.scaleX = 0;
-
       powerTween = game.tweens.add({
         targets: powerBar,
         scaleX: { from: 0, to: 1.5 },
@@ -116,11 +118,12 @@ export default class GameScene extends Phaser.Scene {
     }
   }
   jump() {
-    ninjaJumpPower = -powerBar.width * 3 - 100
+    ninjaJumpPower = -powerBar.width * 3 - 100;
     powerBar.destroy();
     powerTween.stop();
     powerTween.remove();
     ninja.body.velocity.y = ninjaJumpPower * 2;
+    ninja.body.velocity.x = 0;
     ninjaJumping = true;
     game.input.keyboard.off('keyup', game.jump);
     game.input.keyboard.on('keydown', game.prepareToJump);
@@ -142,14 +145,11 @@ export default class GameScene extends Phaser.Scene {
   addPole(poleX) {
     if (poleX < this.game.config.width * 2) {
       placedPoles++;
-      //var pole = new Pole(game, poleX, this.rnd.between(250, 380));
-      var pole = new Pole(game, poleX, 344, 'pole');
-      //var pole = poleGroup.create(poleX, Phaser.Math.RND.between(220, 350) * 2, 'pole');
+      var pole = new Pole(game, poleX, 344, 'ilha');
       pole.setOrigin(0.5, 0);
-      //pole.setCollideWorldBounds(true);
-      pole.setScale(1, 1 / Phaser.Math.RND.between(2, 2));
+      //pole.setScale(1, 1 / Phaser.Math.RND.between(2, 2));
       poleGroup.add(pole);
-      var nextPolePosition = poleX + Phaser.Math.RND.between(minPoleGap + 30, maxPoleGap);
+      var nextPolePosition = poleX + Phaser.Math.RND.between(minPoleGap, maxPoleGap);
       this.addPole(nextPolePosition);
     }
   }
@@ -162,7 +162,8 @@ export default class GameScene extends Phaser.Scene {
     if (p.y >= n.y + n.height / 2) {
       var border = n.x - p.x
       if (Math.abs(border) > 20) {
-        n.body.velocity.x = border * 2;
+        //n.body.velocity.x = border * 2;
+        n.body.velocity.x = 0;
         n.body.velocity.y = -200;
       }
       var poleDiff = p.poleNumber - n.lastPole;
@@ -188,22 +189,23 @@ export default class GameScene extends Phaser.Scene {
 /**
  * Classe que representa o poste
  */
-class Pole extends Phaser.GameObjects.Sprite {
+class Pole extends Phaser.GameObjects.TileSprite {
 
-  constructor(scene, x, y, texture, ) {
-    super(scene, x, y);
+  constructor(scene, x, y, texture ) {
+    
+    super(scene, x, y ,32 * Phaser.Math.RND.between(1, 3), 32 * 15, texture);
     this.poleNumber = placedPoles;
-    this.setTexture(texture);
     scene.add.existing(this);
     scene.physics.add.existing(this);
+    
   }
 
   preUpdate(time, delta) {
-    super.preUpdate(time, delta);
     this.update();
   }
 
   update() {
+    this.body.velocity.y = 0;
     if (ninjaJumping && !ninjaFallingDown) {
       this.body.velocity.x = ninjaJumpPower;
     }
