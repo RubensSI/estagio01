@@ -67,7 +67,7 @@ export default class GameScene extends Phaser.Scene {
     ninja = this.physics.add.sprite(80, 200, "ninja");
 
     this.anims.create({
-      key: 'Up',
+      key: 'keyup',
       frames: this.anims.generateFrameNumbers("ninja", { start: 5, end: 7 }),
       frameRate: 10,
       repeat: -1
