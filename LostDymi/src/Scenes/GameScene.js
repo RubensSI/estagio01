@@ -5,7 +5,7 @@ import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
-import ilha from "../../assets/crate32.png";
+import ilha from "../../assets/platform.png";
 
 var ninja;
 var ninjaGravity = 600;
@@ -162,7 +162,7 @@ export default class GameScene extends Phaser.Scene {
     if (p.y >= n.y + n.height / 2) {
       var border = n.x - p.x
       if (Math.abs(border) > 20) {
-        //n.body.velocity.x = border * 2;
+        n.body.velocity.x = border * 2;
         n.body.velocity.x = 0;
         n.body.velocity.y = -200;
       }
@@ -193,7 +193,8 @@ class Pole extends Phaser.GameObjects.TileSprite {
 
   constructor(scene, x, y, texture ) {
     
-    super(scene, x, y ,32 * Phaser.Math.RND.between(1, 3), 32 * 15, texture);
+    //super(scene, x, y ,32 * Phaser.Math.RND.between(1, 3), 32 * 15, texture);
+    super(scene, x, y ,64, 64 * 15, texture);
     this.poleNumber = placedPoles;
     scene.add.existing(this);
     scene.physics.add.existing(this);
