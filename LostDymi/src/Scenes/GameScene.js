@@ -1,11 +1,13 @@
 import 'phaser';
 import logo from "../../assets/logo.png";
-import ninjaImage from "../../assets/ninjasp.png";
+import ninjaImage from "../../assets/Dymi.png";
+//import ninjaJson from "../../assets/Dymi.json";
 import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
-import ilha from "../../assets/platform.png";
+import ilha from "../../assets/blockice.png";
+
 
 var ninja;
 var ninjaGravity = 600;
@@ -33,8 +35,7 @@ export default class GameScene extends Phaser.Scene {
     // load images
     this.load.image('background', background)
     this.load.image('logo', logo);
-    //this.load.image("pole", ilha)
-    this.load.spritesheet('ninja', ninjaImage, { frameWidth: 72, frameHeight: 64 });
+    this.load.atlas('ninja', 'assets/Dymi.png', 'assets/Dymi.json' );
     this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
@@ -46,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
     this.add.image(500, 300, 'background');
     //  The platforms group contains the ground and the 2 ledges we can jump on
     chaoGroup = this.physics.add.staticGroup();
-    let chao = chaoGroup.create(400, 600, 'chao').setScale(10, 1).refreshBody();
+    let chao = chaoGroup.create(400, 630, 'chao').setScale(10, 1).refreshBody();
     chao.setImmovable(true);
     //chao.setCollideWorldBounds(true);
 
@@ -67,19 +68,19 @@ export default class GameScene extends Phaser.Scene {
     //game.stage.backgroundColor = "#87CEEB";
 
     ninja = this.physics.add.sprite(80, 200, "ninja");
+    var frameNames = this.textures.get('ninja').getFrameNames();
+    console.log(frameNames);
 
     this.anims.create({
-      key: 'keyup',
-      frames: this.anims.generateFrameNumbers("ninja", { start: 5, end: 7 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'turn',
-      frames: [{ key: "ninja", frame: 10 }],
-      frameRate: 20
-    });
+      key: 'Up',
+      frames: [
+          { key: 'ninja',frame: 'penguin_jump01.png' },
+          { key: 'ninja',frame: 'penguin_jump02.png' },
+          { key: 'ninja',frame: 'penguin_jump03.png' }
+        ],
+      frameRate: 3,
+      repeat: 6
+  });
 
     ninja.body.setGravityY(ninjaGravity);
     //ninja.setCollideWorldBounds(true);
@@ -88,7 +89,7 @@ export default class GameScene extends Phaser.Scene {
     ninja.lastPole = 1;
     this.addPole(80);
     this.input.keyboard.on('keydown', this.prepareToJump);
-
+    this.anims.play('true')
   }
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
@@ -98,6 +99,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   prepareToJump() {
+    ninja.play()
     ninja.body.velocity.x = 0;
     if (ninja.body.velocity.y <= 25) {
       //game.physics.add.sprite(100, 450, 'powerbar');
@@ -125,6 +127,7 @@ export default class GameScene extends Phaser.Scene {
     ninja.body.velocity.y = ninjaJumpPower * 2;
     ninja.body.velocity.x = 0;
     ninjaJumping = true;
+    ninja.play('Up');
     game.input.keyboard.off('keyup', game.jump);
     game.input.keyboard.on('keydown', game.prepareToJump);
   }
@@ -147,6 +150,7 @@ export default class GameScene extends Phaser.Scene {
       placedPoles++;
       var pole = new Pole(game, poleX, 344, 'ilha');
       pole.setOrigin(0.5, 0);
+      pole.setScale(0.8);
       //pole.setScale(1, 1 / Phaser.Math.RND.between(2, 2));
       poleGroup.add(pole);
       var nextPolePosition = poleX + Phaser.Math.RND.between(minPoleGap, maxPoleGap);
@@ -194,7 +198,7 @@ class Pole extends Phaser.GameObjects.TileSprite {
   constructor(scene, x, y, texture ) {
     
     //super(scene, x, y ,32 * Phaser.Math.RND.between(1, 3), 32 * 15, texture);
-    super(scene, x, y ,64, 64 * 15, texture);
+    super(scene, x, y , 64, 64 * 14, texture);
     this.poleNumber = placedPoles;
     scene.add.existing(this);
     scene.physics.add.existing(this);
