@@ -78,8 +78,8 @@ export default class GameScene extends Phaser.Scene {
           { key: 'ninja',frame: 'penguin_jump02.png' },
           { key: 'ninja',frame: 'penguin_jump03.png' }
         ],
-      frameRate: 3,
-      repeat: 6
+      frameRate: 2,
+      repeat: 5
   });
 
     ninja.body.setGravityY(ninjaGravity);
