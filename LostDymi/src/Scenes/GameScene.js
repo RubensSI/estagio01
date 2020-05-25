@@ -1,12 +1,13 @@
 import 'phaser';
 import logo from "../../assets/logo.png";
-import ninjaImage from "../../assets/Dymi.png";
+//import ninjaImage from "../../assets/Dymi.png";
 //import ninjaJson from "../../assets/Dymi.json";
 import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
 import ilha from "../../assets/platform.png";
+import Water from "../../assets/water.png";
 
 
 var ninja;
@@ -40,6 +41,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
     this.load.image("ilha",ilha);
+    this.load.image('water', Water);
   }
 
   create() {
@@ -48,6 +50,7 @@ export default class GameScene extends Phaser.Scene {
     //  The platforms group contains the ground and the 2 ledges we can jump on
     chaoGroup = this.physics.add.staticGroup();
     let chao = chaoGroup.create(400, 630, 'chao').setScale(10, 1).refreshBody();
+    var wat0 = this.add.tileSprite(300, 570, 128*8, 99, 'water');
     chao.setImmovable(true);
     //chao.setCollideWorldBounds(true);
 
@@ -90,6 +93,8 @@ export default class GameScene extends Phaser.Scene {
     this.addPole(80);
     this.input.keyboard.on('keydown', this.prepareToJump);
     this.anims.play('true')
+
+    var wat = this.add.tileSprite(400, 620, 128*8, 99, 'water');
   }
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
@@ -165,9 +170,9 @@ export default class GameScene extends Phaser.Scene {
   checkLanding(n, p) {
     if (p.y >= n.y + n.height / 2) {
       var border = n.x - p.x
-      if (Math.abs(border) > 20) {
+      if (Math.abs(border) > 30) {
         n.body.velocity.x = border * 2;
-        n.body.velocity.x = 0;
+        //n.body.velocity.x = 0;
         n.body.velocity.y = -200;
       }
       var poleDiff = p.poleNumber - n.lastPole;
