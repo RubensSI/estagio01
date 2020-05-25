@@ -6,7 +6,7 @@ import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
-import ilha from "../../assets/blockice.png";
+import ilha from "../../assets/platform.png";
 
 
 var ninja;
