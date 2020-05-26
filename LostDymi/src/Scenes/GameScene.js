@@ -17,6 +17,7 @@ var score = 0;
 var scoreText;
 var topScore;
 var powerBar;
+var estPulando = false;
 var powerTween;
 var placedPoles;
 var poleGroup;
@@ -36,11 +37,11 @@ export default class GameScene extends Phaser.Scene {
     // load images
     this.load.image('background', background)
     this.load.image('logo', logo);
-    this.load.atlas('ninja', 'assets/Dymi.png', 'assets/Dymi.json' );
+    this.load.atlas('ninja', 'assets/Dymi.png', 'assets/Dymi.json');
     this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
-    this.load.image("ilha",ilha);
+    this.load.image("ilha", ilha);
     this.load.image('water', Water);
   }
 
@@ -50,7 +51,7 @@ export default class GameScene extends Phaser.Scene {
     //  The platforms group contains the ground and the 2 ledges we can jump on
     chaoGroup = this.physics.add.staticGroup();
     let chao = chaoGroup.create(400, 630, 'chao').setScale(10, 1).refreshBody();
-    var wat0 = this.add.tileSprite(300, 570, 128*8, 99, 'water');
+    var wat0 = this.add.tileSprite(300, 570, 128 * 8, 99, 'water');
     chao.setImmovable(true);
     //chao.setCollideWorldBounds(true);
 
@@ -77,13 +78,13 @@ export default class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'Up',
       frames: [
-          { key: 'ninja',frame: 'penguin_jump01.png' },
-          { key: 'ninja',frame: 'penguin_jump02.png' },
-          { key: 'ninja',frame: 'penguin_jump03.png' }
-        ],
+        { key: 'ninja', frame: 'penguin_jump01.png' },
+        { key: 'ninja', frame: 'penguin_jump02.png' },
+        { key: 'ninja', frame: 'penguin_jump03.png' }
+      ],
       frameRate: 5,
       repeat: 8
-  });
+    });
 
     ninja.body.setGravityY(ninjaGravity);
     //ninja.setCollideWorldBounds(true);
@@ -94,7 +95,7 @@ export default class GameScene extends Phaser.Scene {
     this.input.keyboard.on('keydown', this.prepareToJump);
     this.anims.play('true')
 
-    var wat = this.add.tileSprite(400, 620, 128*8, 99, 'water');
+    var wat = this.add.tileSprite(400, 620, 128 * 8, 99, 'water');
   }
   updateScore() {
     scoreText.text = "Score: " + score + "\nBest: " + topScore;
@@ -104,37 +105,43 @@ export default class GameScene extends Phaser.Scene {
   }
 
   prepareToJump() {
-    ninja.play()
     ninja.body.velocity.x = 0;
-    if (ninja.body.velocity.y <= 25) {
-      //game.physics.add.sprite(100, 450, 'powerbar');
-      powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
-      //powerBar.setScale(0.9).refreshBody();
-      powerBar.scaleX = 0;
-      powerTween = game.tweens.add({
-        targets: powerBar,
-        scaleX: { from: 0, to: 1.5 },
-        width: { from: 0, to: 100 },
-        ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
-        duration: 1000,
-        repeat: 0,            // -1: infinity
-        yoyo: false
-      });
-      game.input.keyboard.off('keydown', game.prepareToJump);
-      game.input.keyboard.on('keyup', game.jump);
+    if (!estPulando) {
+      if (ninja.body.velocity.y <= 25) {
+        ninja.play();
+        //game.physics.add.sprite(100, 450, 'powerbar');
+        powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
+        estPulando = true;
+        //powerBar.setScale(0.9).refreshBody();
+        powerBar.scaleX = 0;
+        powerTween = game.tweens.add({
+          targets: powerBar,
+          scaleX: { from: 0, to: 1.5 },
+          width: { from: 0, to: 100 },
+          ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+          duration: 1000,
+          repeat: 0,            // -1: infinity
+          yoyo: false
+        });
+        game.input.keyboard.off('keydown', game.prepareToJump);
+        game.input.keyboard.on('keyup', game.jump);
+      }
     }
   }
   jump() {
-    ninjaJumpPower = -powerBar.width * 3 - 100;
-    powerBar.destroy();
-    powerTween.stop();
-    powerTween.remove();
-    ninja.body.velocity.y = ninjaJumpPower * 2;
-    ninja.body.velocity.x = 0;
-    ninjaJumping = true;
-    ninja.play('Up');
-    game.input.keyboard.off('keyup', game.jump);
-    game.input.keyboard.on('keydown', game.prepareToJump);
+    if (estPulando) {
+      ninjaJumpPower = -powerBar.width * 3 - 100;
+      powerBar.destroy();
+      estPulando = false;
+      powerTween.stop();
+      powerTween.remove();
+      ninja.body.velocity.y = ninjaJumpPower * 2;
+      ninja.body.velocity.x = 0;
+      ninjaJumping = true;
+      ninja.play('Up');
+      game.input.keyboard.off('keyup', game.jump);
+      game.input.keyboard.on('keydown', game.prepareToJump);
+    }
   }
 
   addNewPoles() {
@@ -200,14 +207,14 @@ export default class GameScene extends Phaser.Scene {
  */
 class Pole extends Phaser.GameObjects.TileSprite {
 
-  constructor(scene, x, y, texture ) {
-    
+  constructor(scene, x, y, texture) {
+
     //super(scene, x, y ,32 * Phaser.Math.RND.between(1, 3), 32 * 15, texture);
-    super(scene, x, y , 64, 64 * 14, texture);
+    super(scene, x, y, 64, 64 * 14, texture);
     this.poleNumber = placedPoles;
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    
+
   }
 
   preUpdate(time, delta) {
