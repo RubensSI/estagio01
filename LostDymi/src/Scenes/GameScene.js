@@ -86,6 +86,25 @@ export default class GameScene extends Phaser.Scene {
       repeat: 8
     });
 
+    this.anims.create({
+      key: 'Stop',
+      frames: [
+          { key: 'ninja', frame: 'penguin_walk04.png' }
+      ],
+      frameRate: 5,
+      repeat: 8
+    });
+    this.anims.create({
+      key: 'Morreu',
+      frames: [
+        { key: 'ninja', frame: 'penguin_die03.png' },
+        { key: 'ninja', frame: 'penguin_die04.png' }
+      ],
+      frameRate: 5,
+      repeat: 8
+    });
+
+
     ninja.body.setGravityY(ninjaGravity);
     //ninja.setCollideWorldBounds(true);
     ninja.setVelocityY(0);
@@ -108,7 +127,7 @@ export default class GameScene extends Phaser.Scene {
     ninja.body.velocity.x = 0;
     if (!estPulando) {
       if (ninja.body.velocity.y <= 25) {
-        ninja.play();
+        ninja.play('Stop', true);
         //game.physics.add.sprite(100, 450, 'powerbar');
         powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
         estPulando = true;
@@ -138,7 +157,7 @@ export default class GameScene extends Phaser.Scene {
       ninja.body.velocity.y = ninjaJumpPower * 2;
       ninja.body.velocity.x = 0;
       ninjaJumping = true;
-      ninja.play('Up');
+      ninja.play('Up',true);
       game.input.keyboard.off('keyup', game.jump);
       game.input.keyboard.on('keydown', game.prepareToJump);
     }
@@ -170,11 +189,16 @@ export default class GameScene extends Phaser.Scene {
     }
   }
   die() {
+    ninja.play('Morreu',true);
+    for (let index = 0; index < 8000; index++) {
+      //const element = array[index];
+    }
     localStorage.setItem("topFlappyScore", Math.max(score, topScore));
     game.scene.start("Game");
   }
 
   checkLanding(n, p) {
+    ninja.play('Stop',true);
     if (p.y >= n.y + n.height / 2) {
       var border = n.x - p.x
       if (Math.abs(border) > 30) {
