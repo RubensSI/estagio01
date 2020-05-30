@@ -6,6 +6,8 @@ import chaoImg from "../../assets/chao.png";
 import background from "../../assets/BG.png";
 import ilha from "../../assets/platform.png";
 import Water from "../../assets/water.png";
+import Dymi from "../../assets/Dymi.png";
+import DymiJson from "../../assets/Dymi.json";
 
 
 var ninja;
@@ -35,7 +37,7 @@ export default class GameScene extends Phaser.Scene {
     // load images
     this.load.image('background', background)
     this.load.image('logo', logo);
-    this.load.atlas('ninja', 'assets/Dymi.png', 'assets/Dymi.json');
+    this.load.atlas('ninja', Dymi, DymiJson);
     this.load.image("pole", pole);
     this.load.image("powerbar", powerbar);
     this.load.image("chao", chaoImg);
