@@ -8,7 +8,7 @@ export default class CreditsScene extends Phaser.Scene {
 
   create () {
     this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
-    this.madeByText = this.add.text(0, 0, 'Created By: Placeholder', { fontSize: '26px', fill: '#fff' });
+    this.madeByText = this.add.text(0, 0, 'Desenvolvido por:\n\n Rubens dos Santos Pinto \n\n Disciplina de Estágio I\n\nSI\n\nUNI7\n\n2020.1', { fontSize: '26px', fill: '#fff' });
     this.zone = this.add.zone(config.width/2, config.height/2, config.width, config.height);
 
     Phaser.Display.Align.In.Center(
@@ -36,7 +36,7 @@ export default class CreditsScene extends Phaser.Scene {
 
     this.madeByTween = this.tweens.add({
       targets: this.madeByText,
-      y: -300,
+      y: -280,
       ease: 'Power1',
       duration: 8000,
       delay: 1000,
