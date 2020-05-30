@@ -1,7 +1,5 @@
 import 'phaser';
 import logo from "../../assets/logo.png";
-//import ninjaImage from "../../assets/Dymi.png";
-//import ninjaJson from "../../assets/Dymi.json";
 import pole from "../../assets/pole.png";
 import powerbar from '../../assets/powerbar.png';
 import chaoImg from "../../assets/chao.png";
@@ -69,7 +67,6 @@ export default class GameScene extends Phaser.Scene {
       font: "bold 16px Arial"
     });
     this.updateScore();
-    //game.stage.backgroundColor = "#87CEEB";
 
     ninja = this.physics.add.sprite(80, 200, "ninja");
     var frameNames = this.textures.get('ninja').getFrameNames();
@@ -89,7 +86,7 @@ export default class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'Stop',
       frames: [
-          { key: 'ninja', frame: 'penguin_walk04.png' }
+        { key: 'ninja', frame: 'penguin_walk04.png' }
       ],
       frameRate: 5,
       repeat: 8
@@ -106,7 +103,6 @@ export default class GameScene extends Phaser.Scene {
 
 
     ninja.body.setGravityY(ninjaGravity);
-    //ninja.setCollideWorldBounds(true);
     ninja.setVelocityY(0);
     this.physics.add.collider(ninja, chaoGroup, this.die, null, this);
     ninja.lastPole = 1;
@@ -128,10 +124,8 @@ export default class GameScene extends Phaser.Scene {
     if (!estPulando) {
       if (ninja.body.velocity.y <= 25) {
         ninja.play('Stop', true);
-        //game.physics.add.sprite(100, 450, 'powerbar');
         powerBar = game.add.image(ninja.x + 50, ninja.y - 50, 'powerbar');
         estPulando = true;
-        //powerBar.setScale(0.9).refreshBody();
         powerBar.scaleX = 0;
         powerTween = game.tweens.add({
           targets: powerBar,
@@ -147,6 +141,7 @@ export default class GameScene extends Phaser.Scene {
       }
     }
   }
+
   jump() {
     if (estPulando) {
       ninjaJumpPower = -powerBar.width * 3 - 100;
@@ -157,7 +152,7 @@ export default class GameScene extends Phaser.Scene {
       ninja.body.velocity.y = ninjaJumpPower * 2;
       ninja.body.velocity.x = 0;
       ninjaJumping = true;
-      ninja.play('Up',true);
+      ninja.play('Up', true);
       game.input.keyboard.off('keyup', game.jump);
       game.input.keyboard.on('keydown', game.prepareToJump);
     }
@@ -188,8 +183,9 @@ export default class GameScene extends Phaser.Scene {
       this.addPole(nextPolePosition);
     }
   }
+
   die() {
-    ninja.play('Morreu',true);
+    ninja.play('Morreu', true);
     for (let index = 0; index < 8000; index++) {
       //const element = array[index];
     }
@@ -198,7 +194,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   checkLanding(n, p) {
-    ninja.play('Stop',true);
+    ninja.play('Stop', true);
     if (p.y >= n.y + n.height / 2) {
       var border = n.x - p.x
       if (Math.abs(border) > 30) {
@@ -218,6 +214,7 @@ export default class GameScene extends Phaser.Scene {
         game.input.keyboard.on('keydown', game.prepareToJump);
       }
     }
+
     else {
       ninjaFallingDown = true;
       poleGroup.children.iterate(function (item) {

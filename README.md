@@ -10,11 +10,7 @@ A interação do jogo acontece da seguinte forma, o personagem vai se movimentan
 
 ## Sistema de pontuação
 
-Os pontos são acumulados quando o personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 10 pontos podendo ser acrescentado pontos extras por cada sequência de blocos realizada. 
-
-## Sistema de vidas
-
-O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira será reiniciada.
+Os pontos são acumulados quando o personagem salta e cai sobre a próxima plataforma, a cada salto correto o score adiciona em 2 pontos podendo ser acrescentado pontos extras por cada sequência de blocos realizada. 
 
 ## Requisitos
 
@@ -26,16 +22,13 @@ O jogo iniciará com três vidas, quando o jogador atingir 0 vidas a partira ser
 
 2. **Desenvolver  a tela principal do jogo**
 
-   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque no mouse
+   A aplicação exibe uma tela contendo o personagem sobre uma plataforma, podendo saltar para as próximas, aplicando uma quantidade força através do toque no direcinal do pc, tambem possue um botção para voltar para menu 
 
-4. **Exibir tela de help**
 
-   A aplicação vai exibir a tela de help podendo ser acessada através do menu .
+3. **Exibir tela de ranking**
 
-5. **Exibir tela de ranking**
+   A aplicação exibe na tela principal, os pontos obtidos pelo obetidos e a maior pontuação alcançada no jogo.
 
-   A aplicação exibe uma tela contendo os pontos obtidos pelo jogar e disponibiliza um ranking.
-O jogo iniciará com três vidas, quando o personagem atingir 0 vidas, a partida será finalizada.
 
 **Personas**
 Mari - usuário com acesso a um navegador web, que gosta de jogar games no computador.
