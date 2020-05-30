@@ -44,6 +44,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    game = this;
+
+    const music = this.sound.add('bgMusic', { volume: 0.05, loop: true });
+
+    music.play();
     //Adição do background
     this.add.image(500, 300, 'background');
     //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -53,7 +58,11 @@ export default class GameScene extends Phaser.Scene {
     chao.setImmovable(true);
     //chao.setCollideWorldBounds(true);
 
-    game = this;
+    const quit = this.add.text(10, 50, 'Quit', { font: "bold 16px Arial" });
+    quit.setInteractive();
+
+    quit.on('pointerdown', () => {this.sound.stopAll(), this.scene.start('Title'); });
+    
     ninjaJumping = false;
     ninjaFallingDown = false;
     score = 0;
@@ -186,6 +195,7 @@ export default class GameScene extends Phaser.Scene {
 
   die() {
     ninja.play('Morreu', true);
+    this.sound.stopAll();
     for (let index = 0; index < 8000; index++) {
       //const element = array[index];
     }
