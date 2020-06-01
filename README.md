@@ -27,7 +27,7 @@ Os pontos são acumulados quando o personagem salta e cai sobre a próxima plata
 
 3. **Exibir tela de ranking**
 
-   A aplicação exibe na tela principal, os pontos obtidos pelo obetidos e a maior pontuação alcançada no jogo.
+   A aplicação exibe na tela principal, os pontos obtidos na partida e a maior pontuação alcançada no jogo.
 
 
 **Personas**
