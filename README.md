@@ -2,11 +2,11 @@
 
 ## Visão geral
 
-LostDymi é um jogo no qual o jogador controla um pinguim que precisa atravessar um percurso imprevisível e bastante irregular por meio de saltos. Apresentando seu trajeto em plataforma 2D, e preciso pressionar o botão esquerdo do mouse para regular o grau de impulsão dos saltos, recebendo pontos por cada elevação alcançada.
+LostDymi é um jogo no qual o jogador controla um pinguim que precisa atravessar um percurso imprevisível e bastante irregular por meio de saltos. Apresentando seu trajeto em plataforma 2D, e preciso pressionar o botão direcional do teclado para regular o grau de impulsão dos saltos, recebendo pontos por cada salto feito de forma correta.
 
 ## Interações com o jogo
 
-A interação do jogo acontece da seguinte forma, o personagem vai se movimentando entre os blocos do cenário pressionando  o botão esquerdo do mouse, se movendo sempre para a direita, por meio da ação pular. 
+A interação do jogo acontece da seguinte forma, o personagem vai se movimentando entre os blocos do cenário pressionando  o botão direcional do teclado, se movendo sempre para cima, por meio da ação pular. 
 
 ## Sistema de pontuação
 
@@ -18,7 +18,7 @@ Os pontos são acumulados quando o personagem salta e cai sobre a próxima plata
 
 1. **Exibir tela de abertura com opção de menu**
 
-   A aplicação exibe uma tela de abertura com opções de menu, contendo ajuda com  informações do game e iniciar partida
+   A aplicação exibe uma tela de abertura com opções de menu, play, options, credits
 
 2. **Desenvolver  a tela principal do jogo**
 
@@ -38,3 +38,5 @@ Mari - usuário com acesso a um navegador web, que gosta de jogar games no compu
 
 
 ![diagrama](diagrama.png)
+
+Link da aplicação: https://rubensms.gamejolt.io/lostdymi
